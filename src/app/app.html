@@ -1,16 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <app-header></app-header>
-  <app-punto1></app-punto1>
-  <app-punto2></app-punto2> 
-  <app-punto3></app-punto3>
-  <app-punto4></app-punto4>
-  <app-footer></app-footer>
-</body>
-</html>
+<app-header></app-header>
+
+<main class="container my-5 shadow-sm p-4 bg-light rounded" style="min-height: 80vh;">
+  
+  <h1 class="display-4 text-center text-primary mb-4 border-bottom pb-3">
+    {{ title() }}
+  </h1>
+
+  <section class="row">
+    <div class="col-12">
+      <router-outlet></router-outlet>
+    </div>
+  </section>
+
+</main>
+
+<app-footer></app-footer>
