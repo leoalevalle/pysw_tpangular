@@ -1,1 +1,95 @@
-<p>punto4 works!</p>
+<div class="container mt-4">
+  <div class="card shadow p-4">
+    <h2 class="text-primary">Inscripción a Cursos</h2>
+    
+    <form #formInscripcion="ngForm">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">DNI</label>
+          <input type="text" class="form-control" name="dni" [(ngModel)]="nuevaInscripcion.dni">
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">Email</label>
+          <input type="text" class="form-control" name="email" [(ngModel)]="nuevaInscripcion.email">
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">Curso</label>
+          <input type="text" class="form-control" name="curso" [(ngModel)]="nuevaInscripcion.curso">
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">Fecha de Inscripción</label>
+          <input type="date" class="form-control" name="fecha" [(ngModel)]="nuevaInscripcion.fechaInscripcion">
+        </div>
+        
+        <div class="col-md-6">
+          <label class="form-label">Precio Base</label>
+          <input type="number" class="form-control" name="precio" 
+                 [(ngModel)]="nuevaInscripcion.precio" (change)="calcularPrecio()">
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">Categoría Alumno</label>
+          <select class="form-select" name="cat" 
+                  [(ngModel)]="nuevaInscripcion.categoriaAlumno" (change)="calcularPrecio()">
+            <option value="">Seleccione...</option>
+            <option value="1">Estudiante (35% OFF)</option>
+            <option value="2">Egresado (50% OFF)</option>
+            <option value="3">Particular</option>
+          </select>
+        </div>
+
+        <div class="col-12" *ngIf="nuevaInscripcion.precio > 0 && nuevaInscripcion.categoriaAlumno">
+          <div class="alert alert-info">
+            <strong>Precio Final: </strong> {{ nuevaInscripcion.precioFinal | currency }}
+          </div>
+        </div>
+
+        <div class="col-12">
+          <button type="button" class="btn btn-success" (click)="registrar()">REGISTRAR</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="mt-5">
+    <h3>Listado de Inscripciones</h3>
+    <table class="table table-striped border">
+      <thead class="table-dark">
+        <tr>
+          <th>DNI</th>
+          <th>Curso</th>
+          <th>Fecha</th>
+          <th>Precio Final</th>
+          <th>Acciones</th>
+        </tr>
+        </thead>
+      <tbody>
+        <tr *ngFor="let item of inscripcionService.getInscripciones(); let i = index">
+          <td>{{ item.dni }}</td>
+          <td>{{ item.curso }}</td>
+          <td>{{ item.fechaInscripcion | date:'dd/MM/yyyy' }}</td>
+          <td>{{ item.precioFinal | currency }}</td>
+          <td>
+            <button class="btn btn-warning btn-sm me-2" (click)="prepararEditar(item, i)">
+              Editar
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="eliminar(i)">
+              Borrar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="alert alert-secondary mt-3">
+    <h5>Resumen por Categoría:</h5>
+    <p>Estudiantes: {{ inscripcionService.getResumen().estudiantes }} | 
+       Egresados: {{ inscripcionService.getResumen().egresados }} | 
+       Particulares: {{ inscripcionService.getResumen().particulares }}</p>
+    <p><strong>Total General: {{ inscripcionService.getResumen().total }}</strong></p>
+  </div>
+</div>
