@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
 import { Inscripcion } from '../../services/inscripcion';
 import { Inscripcionmodel } from '../../models/inscripcionmodel';
@@ -31,7 +32,7 @@ export class Punto4 {
     }
   }
 
-  registrar() {
+  registrar(form: NgForm  ) {
     if (this.indiceEditando === null) {
       // MODO CREAR
       this.inscripcionService.registrarInscripcion({ ...this.nuevaInscripcion });
@@ -40,6 +41,7 @@ export class Punto4 {
       this.inscripcionService.actualizarInscripcion(this.indiceEditando, { ...this.nuevaInscripcion });
       this.indiceEditando = null;
     }
+    form.resetForm();
     this.nuevaInscripcion = this.resetInscripcion();
   }
 
@@ -54,7 +56,8 @@ export class Punto4 {
     }
   }
 
-  cancelarEdicion() {
+  cancelarEdicion(form: NgForm) {
+    form.resetForm();
     this.nuevaInscripcion = this.resetInscripcion();
     this.indiceEditando = null;
   }

@@ -1,39 +1,54 @@
 <div class="container mt-4">
   <div class="card shadow p-4">
-    <h2 class="text-primary">Inscripción a Cursos</h2>
+    <h2 class="text-primary">{{ indiceEditando === null ? 'Nueva Inscripción' : 'Editando Inscripción' }}</h2>
     
     <form #formInscripcion="ngForm">
       <div class="row g-3">
+        
         <div class="col-md-6">
           <label class="form-label">DNI</label>
-          <input type="text" class="form-control" name="dni" [(ngModel)]="nuevaInscripcion.dni">
+          <input type="text" class="form-control" name="dni" required
+                pattern="^[0-9]{7,8}$" title="Ingrese un DNI válido (7 u 8 dígitos)"
+                [(ngModel)]="nuevaInscripcion.dni" #dni="ngModel"
+                [class.is-invalid]="dni.invalid && dni.touched">
+                <div class="invalid-feedback">
+                  El DNI debe tener exactamente 8 números.
+                </div>
         </div>
 
         <div class="col-md-6">
           <label class="form-label">Email</label>
-          <input type="text" class="form-control" name="email" [(ngModel)]="nuevaInscripcion.email">
+          <input type="email" class="form-control" name="email" required email
+                 [(ngModel)]="nuevaInscripcion.email" #email="ngModel"
+                 [class.is-invalid]="email.invalid && email.touched">
         </div>
 
         <div class="col-md-6">
           <label class="form-label">Curso</label>
-          <input type="text" class="form-control" name="curso" [(ngModel)]="nuevaInscripcion.curso">
+          <input type="text" class="form-control" name="curso" required 
+                 [(ngModel)]="nuevaInscripcion.curso" #curso="ngModel"
+                 [class.is-invalid]="curso.invalid && curso.touched">
         </div>
 
         <div class="col-md-6">
           <label class="form-label">Fecha de Inscripción</label>
-          <input type="date" class="form-control" name="fecha" [(ngModel)]="nuevaInscripcion.fechaInscripcion">
+          <input type="date" class="form-control" name="fecha" required 
+                 [(ngModel)]="nuevaInscripcion.fechaInscripcion" #fecha="ngModel"
+                 [class.is-invalid]="fecha.invalid && fecha.touched">
         </div>
         
         <div class="col-md-6">
           <label class="form-label">Precio Base</label>
-          <input type="number" class="form-control" name="precio" 
-                 [(ngModel)]="nuevaInscripcion.precio" (change)="calcularPrecio()">
+          <input type="number" class="form-control" name="precio" required min="1"
+                 [(ngModel)]="nuevaInscripcion.precio" (change)="calcularPrecio()" 
+                 #precio="ngModel" [class.is-invalid]="precio.invalid && precio.touched">
         </div>
 
         <div class="col-md-6">
           <label class="form-label">Categoría Alumno</label>
-          <select class="form-select" name="cat" 
-                  [(ngModel)]="nuevaInscripcion.categoriaAlumno" (change)="calcularPrecio()">
+          <select class="form-select" name="cat" required
+                  [(ngModel)]="nuevaInscripcion.categoriaAlumno" (change)="calcularPrecio()"
+                  #cat="ngModel" [class.is-invalid]="cat.invalid && cat.touched">
             <option value="">Seleccione...</option>
             <option value="1">Estudiante (35% OFF)</option>
             <option value="2">Egresado (50% OFF)</option>
@@ -42,16 +57,32 @@
         </div>
 
         <div class="col-12" *ngIf="nuevaInscripcion.precio > 0 && nuevaInscripcion.categoriaAlumno">
-          <div class="alert alert-info">
+          <div class="alert alert-info py-2">
             <strong>Precio Final: </strong> {{ nuevaInscripcion.precioFinal | currency }}
           </div>
         </div>
 
-        <div class="col-12">
-          <button type="button" class="btn btn-success" (click)="registrar()">REGISTRAR</button>
+        <div class="col-12 d-flex gap-2">
+          <button type="button" class="btn" 
+                  [ngClass]="indiceEditando === null ? 'btn-success' : 'btn-warning'"
+                  [disabled]="formInscripcion.invalid" 
+                  (click)="registrar(formInscripcion)">
+            {{ indiceEditando === null ? 'REGISTRAR' : 'GUARDAR CAMBIOS' }}
+          </button>
+
+          <button type="button" class="btn btn-secondary" 
+                  (click)="cancelarEdicion(formInscripcion)">
+            {{ indiceEditando === null ? 'LIMPIAR' : 'CANCELAR' }}
+          </button>
         </div>
+        
+        <small class="text-danger" *ngIf="formInscripcion.invalid && formInscripcion.dirty">
+          * Todos los campos son obligatorios y deben ser válidos.
+        </small>
       </div>
     </form>
+  </div>
+
   </div>
 
   <div class="mt-5">
@@ -92,4 +123,3 @@
        Particulares: {{ inscripcionService.getResumen().particulares }}</p>
     <p><strong>Total General: {{ inscripcionService.getResumen().total }}</strong></p>
   </div>
-</div>
