@@ -1,4 +1,40 @@
 <body>
-    <p>Este es el punto 1</p>
-    <h3>inicio</h3>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-10"> 
+                <div class="card shadow">
+                    <div class="slide-container position-relative">
+                    
+                        <div class="position-relative">
+                        <img 
+                            [src]="eventoActual.img" 
+                            class="card-img-top" 
+                            alt="{{ eventoActual.nombre }}"
+                            style="height: 400px; object-fit: cover;"
+                        >
+                        <div class="overlay-dark"></div>
+
+                        <!-- texto sobre imagen -->
+                        <div class="texto-sobre-imagen">
+                            <h2 class="titulo-evento">{{ eventoActual.nombre }}</h2>
+                            <p class="descripcion-evento">{{ eventoActual.descripcion }}</p>
+                        </div>
+
+                        <!-- flecha izquierda -->
+                        <button class="nav-arrow nav-arrow-left" (click)="anterior()">
+                            &#10094;
+                        </button>
+                        
+                        <!-- flecha derecha -->
+                        <button class="nav-arrow nav-arrow-right" (click)="siguiente()">
+                            &#10095;
+                        </button>
+
+                        </div>
+                    
+                    </div>
+                </div>
+        </div>
+    </div>
+
 </body>
