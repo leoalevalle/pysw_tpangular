@@ -15,12 +15,12 @@ import { Inscripcionmodel } from '../../models/inscripcionmodel';
 
 export class Punto4 {
   nuevaInscripcion: Inscripcionmodel = this.resetInscripcion();
-  indiceEditando: number | null = null; // Para edicion, null significa creación
+  indiceEditando: number | null = null;
 
   constructor(public inscripcionService: Inscripcion) {}
 
   resetInscripcion(): Inscripcionmodel {
-    return { dni: '', precio: 0, categoriaAlumno: '', fechaInscripcion: '', email: '', curso: '', precioFinal: 0 };
+    return { dni: '', precio: 0, categoriaAlumno: '', fechaInscripcion: new Date().toISOString().split('T')[0], email: '', curso: '', precioFinal: 0 };
   }
 
   calcularPrecio() {
