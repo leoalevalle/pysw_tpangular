@@ -25,7 +25,7 @@
     <div class="col-md-3 mb-4" *ngFor="let prod of productos">
       <div class="card h-100 shadow-sm">
         <!-- Property binding en el src y alt -->
-        <img [src]="'/assets/img/' + prod.img" class="card-img-top" [alt]="prod.nombre" onerror="this.src='https://via.placeholder.com/150'">
+        <img [src]="'assets/img/' + prod.img" class="card-img-top" [alt]="prod.nombre" onerror="this.src='https://via.placeholder.com/150'">
         <div class="card-body d-flex flex-column">
           <!-- Pipe uppercase para el título -->
           <h5 class="card-title">{{ prod.nombre | uppercase }}</h5>
