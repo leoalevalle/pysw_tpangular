@@ -1,0 +1,112 @@
+/* --- Navbar Estilizada --- */
+.navbar {
+  border-bottom: 2px solid #0dcaf0;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* --- Grilla de Productos --- */
+h2 {
+  font-weight: 700;
+  color: #333;
+  border-left: 5px solid #198754;
+  padding-left: 15px;
+}
+
+/* --- Cards de Productos --- */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important;
+}
+
+/* --- Imágenes de Productos --- */
+.card-img-top {
+  height: 200px;
+  object-fit: contain;
+  padding: 15px;
+  background-color: #f8f9fa;
+}
+
+/* --- Cuerpo de la Card --- */
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #212529;
+}
+
+.card-text.text-muted {
+  font-size: 0.9rem;
+  height: 3rem; 
+  overflow: hidden;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* --- Botón Agregar --- */
+.btn-success {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: 0.2s;
+}
+
+.btn-success:hover {
+  background-color: #146c43;
+  transform: scale(1.02);
+}
+
+/* --- Estilos del Modal --- */
+.modal-header {
+  border-bottom: 2px solid #0dcaf0;
+}
+
+.list-group-item {
+  transition: background-color 0.2s;
+}
+
+.list-group-item:hover {
+  background-color: #f1f1f1;
+}
+
+.modal-footer h4 {
+  font-weight: 700;
+}
+
+/* --- Animación para el badge del carrito --- */
+.btn-outline-info span {
+  transition: all 0.3s;
+}
+
+.btn-outline-info:active {
+  transform: scale(0.95);
+}
+
+/* Ajuste del botón carrito en móviles */
+@media (max-width: 576px) {
+  .btn-carrito-responsive {
+    padding: 5px 8px;
+    font-size: 0.8rem;
+  }
+  
+/* titulo responsive */
+h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* imagenes responsive */
+@media (max-width: 768px) {
+  .card-img-top {
+    height: 150px;
+  }
+}
