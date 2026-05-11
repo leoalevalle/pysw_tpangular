@@ -31,17 +31,25 @@
         </div>
 
         <div class="col-md-6">
-          <label class="form-label">Fecha de Inscripción</label>
-          <input type="date" class="form-control" name="fecha" required 
-                 [(ngModel)]="nuevaInscripcion.fechaInscripcion" #fecha="ngModel"
-                 [class.is-invalid]="fecha.invalid && fecha.touched">
-        </div>
+  <label class="form-label">
+    <i class="bi bi-calendar3 me-1"></i>
+    Fecha de Inscripción
+  </label>
+  <input type="text" class="form-control bg-light" 
+         [value]="(nuevaInscripcion.fechaInscripcion | date:'dd/MM/yyyy')" 
+         readonly disabled>
+  <input type="hidden" [(ngModel)]="nuevaInscripcion.fechaInscripcion" name="fecha">
+</div>
         
         <div class="col-md-6">
           <label class="form-label">Precio Base</label>
-          <input type="number" class="form-control" name="precio" required min="1"
-                 [(ngModel)]="nuevaInscripcion.precio" (change)="calcularPrecio()" 
-                 #precio="ngModel" [class.is-invalid]="precio.invalid && precio.touched">
+            <input type="number" class="form-control" name="precio" required min="1"
+              [(ngModel)]="nuevaInscripcion.precio" (input)="calcularPrecio()" 
+              #precio="ngModel" [class.is-invalid]="precio.invalid && precio.touched"
+              step="any">
+          <div class="invalid-feedback">
+            El precio debe ser mayor a 0
+          </div>
         </div>
 
         <div class="col-md-6">
@@ -92,6 +100,7 @@
         <tr>
           <th>DNI</th>
           <th>Curso</th>
+          <th>Categoría</th>
           <th>Fecha</th>
           <th>Precio Final</th>
           <th>Acciones</th>
@@ -101,6 +110,7 @@
         <tr *ngFor="let item of inscripcionService.getInscripciones(); let i = index">
           <td>{{ item.dni }}</td>
           <td>{{ item.curso }}</td>
+          <td>{{ item.categoriaAlumno === '1' ? 'Estudiante' : item.categoriaAlumno === '2' ? 'Egresado' : 'Particular' }}</td>
           <td>{{ item.fechaInscripcion | date:'dd/MM/yyyy' }}</td>
           <td>{{ item.precioFinal | currency }}</td>
           <td>
