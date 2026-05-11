@@ -1,0 +1,78 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+  
+  .navbar-brand i {
+    font-size: 1.4rem;
+  }
+  
+  .nav-link::after {
+    bottom: -2px;
+  }
+  
+  footer .col-md-4 {
+    text-align: center;
+  }
+  
+  footer h3::after, footer h4::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  footer a:hover {
+    transform: translateX(0) scale(1.05);
+  }
+}
+
+/* ========== ANIMACIONES ========== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+footer .row > div {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+footer .row > div:nth-child(1) { animation-delay: 0.1s; }
+footer .row > div:nth-child(2) { animation-delay: 0.2s; }
+footer .row > div:nth-child(3) { animation-delay: 0.3s; }
+
+/* ========== MEJORAS DE ACCESIBILIDAD ========== */
+.nav-link:focus-visible,
+footer a:focus-visible {
+  outline: 2px solid #ffd700;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ========== SCROLLBAR PERSONALIZADA ========== */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0d6efd;
+  border-radius: 5px;
+}
